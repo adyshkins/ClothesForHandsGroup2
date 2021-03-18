@@ -1,0 +1,59 @@
+﻿<Window x:Class="ClothesForHandsGroup2.ListMaterialWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClothesForHandsGroup2"
+        mc:Ignorable="d"
+        Title="Одежда для ручек"
+        MinHeight="450"
+        MinWidth="800"
+        Height="800" 
+        Width="1300"
+        Icon="/ClothesForHandsGroup2;component/Resourses/iconWin.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя строчка (Заголовок) -->
+        <Image Source="/ClothesForHandsGroup2;component/Resourses/Logo.png"
+               HorizontalAlignment="Left"
+               Margin="15 0"/>
+        <TextBlock Text="Список материалов"
+                   HorizontalAlignment="Center"
+                   FontSize="25" 
+                   FontFamily="Candara"/>
+        
+        <!-- Количество записей -->
+
+        <WrapPanel Grid.Row="1"
+                   HorizontalAlignment="Right">
+            <TextBlock Text="Записей"
+                       FontSize="25" 
+                       FontFamily="Candara"
+                       Margin="10 0"/>
+            
+            <TextBlock Text="14"
+                       FontSize="25" 
+                       FontFamily="Candara"
+                       Margin="10 0"/>
+            
+            <TextBlock Text="из"
+                       FontSize="25" 
+                       FontFamily="Candara"
+                       Margin="10 0"/>
+            
+            <TextBlock Text="100"
+                       FontSize="25" 
+                       FontFamily="Candara"
+                       Margin="10 0"/>
+        </WrapPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClothesForHandsGroup2", "ClothesForHandsGroup2\ClothesForHandsGroup2.csproj", "{01FA588B-1375-4E39-AB45-5933BDAE5EED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01FA588B-1375-4E39-AB45-5933BDAE5EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FA588B-1375-4E39-AB45-5933BDAE5EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FA588B-1375-4E39-AB45-5933BDAE5EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FA588B-1375-4E39-AB45-5933BDAE5EED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B9BBF74-44E8-4B78-A52F-CEFF90D2A4C7}
+	EndGlobalSection
+EndGlobal
