@@ -57,5 +57,78 @@
         </WrapPanel>
         
         <!-- Фильтры и поиск -->
+
+        <WrapPanel Grid.Row="2" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <TextBox x:Name="txtSearch"
+                     Width="220"
+                     Height="30"
+                     FontSize="20"
+                     FontFamily="Candara"
+                     Margin="20 0"/>
+
+            <ComboBox x:Name="cmbSort"
+                     Width="220"
+                     Height="30"
+                     FontSize="20"
+                     FontFamily="Candara"
+                     Margin="20 0"/>
+
+            <ComboBox x:Name="cmbFilter"
+                     Width="220"
+                     Height="30"
+                     FontSize="20"
+                     FontFamily="Candara"
+                     Margin="20 0"/>
+        </WrapPanel>
+        
+        <!-- Список материалов -->
+
+        <ListView x:Name="lvListMaterial"
+                  Grid.Row="3" FontFamily="Candara">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black"
+                BorderThickness="1"
+                Width="800"
+                Height="100">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Первый столбец (Изображение) -->
+                            <Image Grid.Column="0"/>
+
+                            <!-- Второй столбец (Тип и имя) -->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock FontSize="20"
+                               FontFamily="Candara"
+                               Text="Тип материала | Наименование материала"
+                               Margin="0 5"/>
+                                <TextBlock FontSize="20"
+                               FontFamily="Candara"
+                               Text="Минимальное количество"
+                               Margin="0 5"/>
+                                <TextBlock FontSize="20"
+                               FontFamily="Candara"
+                               Text="Поставщики"
+                               Margin="0 5"/>
+                            </StackPanel>
+                            <!-- Третий столбец (Остаток) -->
+                            <TextBlock Grid.Column="2" 
+                           FontSize="20"
+                           FontFamily="Candara"
+                           Text="Остаток: 0 шт."
+                           Margin="0 5"
+                           VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>
