@@ -55,5 +55,7 @@
                        FontFamily="Candara"
                        Margin="10 0"/>
         </WrapPanel>
+        
+        <!-- Фильтры и поиск -->
     </Grid>
 </Window>
