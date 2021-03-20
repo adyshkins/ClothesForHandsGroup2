@@ -30,7 +30,7 @@ namespace ClothesForHandsGroup2.EF
         public int MinCount { get; set; }
         public int CountInBox { get; set; }
         public int TypeDimension { get; set; }
-    
+
         public virtual TypeMaterial TypeMaterial { get; set; }
         public virtual UntType UntType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

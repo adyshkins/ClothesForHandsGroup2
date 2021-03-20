@@ -54,33 +54,42 @@
                        FontSize="25" 
                        FontFamily="Candara"
                        Margin="10 0"/>
+
         </WrapPanel>
         
         <!-- Фильтры и поиск -->
 
         <WrapPanel Grid.Row="2" 
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="50 0 0 0">
+            <TextBlock Text="Поиск: "
+                       FontSize="25" 
+                       FontFamily="Candara"
+                       Margin="10 0"/>
             <TextBox x:Name="txtSearch"
                      Width="220"
                      Height="30"
                      FontSize="20"
                      FontFamily="Candara"
-                     Margin="20 0"/>
+                     Margin="20 0"
+                     TextChanged="txtSearch_TextChanged"/>
 
             <ComboBox x:Name="cmbSort"
                      Width="220"
                      Height="30"
                      FontSize="20"
                      FontFamily="Candara"
-                     Margin="20 0"/>
+                     Margin="20 0"
+                      SelectionChanged="cmbSort_SelectionChanged"/>
 
             <ComboBox x:Name="cmbFilter"
                      Width="220"
                      Height="30"
                      FontSize="20"
                      FontFamily="Candara"
-                     Margin="20 0"/>
+                     Margin="20 0"
+                      SelectionChanged="cmbFilter_SelectionChanged"/>
         </WrapPanel>
         
         <!-- Список материалов -->
@@ -91,7 +100,7 @@
                 <DataTemplate>
                     <Border BorderBrush="Black"
                 BorderThickness="1"
-                Width="800"
+                Width="1000"
                 Height="100">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -101,18 +110,29 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- Первый столбец (Изображение) -->
-                            <Image Grid.Column="0"/>
+                            
+                            <Image Grid.Column="0">
+                                <Image.Source>
+                                    <Binding Path="Image">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Resourses/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
 
                             <!-- Второй столбец (Тип и имя) -->
                             <StackPanel Grid.Column="1">
                                 <TextBlock FontSize="20"
                                FontFamily="Candara"
-                               Text="Тип материала | Наименование материала"
+                               Text="{Binding GetTypeAndName}"
                                Margin="0 5"/>
+                                
                                 <TextBlock FontSize="20"
                                FontFamily="Candara"
-                               Text="Минимальное количество"
+                               Text="{Binding GetMinCount}"
                                Margin="0 5"/>
+                                
                                 <TextBlock FontSize="20"
                                FontFamily="Candara"
                                Text="Поставщики"
@@ -122,7 +142,7 @@
                             <TextBlock Grid.Column="2" 
                            FontSize="20"
                            FontFamily="Candara"
-                           Text="Остаток: 0 шт."
+                           Text="{Binding GetCount}"
                            Margin="0 5"
                            VerticalAlignment="Center"/>
                         </Grid>
