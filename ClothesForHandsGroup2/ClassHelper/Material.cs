@@ -12,7 +12,24 @@ namespace ClothesForHandsGroup2.EF
         public string GetMinCount { get => $"Минимальное количество: {MinCount} шт."; }
         public string GetCount { get => $"Остаток: {Count} шт."; }
 
-
-
+        public string GetColor 
+        
+        {
+            get             
+            {
+                if (Count < MinCount)
+                {
+                    return "#f19292";
+                }
+                else if(Count > MinCount * 3)
+                {
+                    return "#ffba01";
+                }
+                else
+                {
+                    return "#fff";
+                }
+            }
+        }
     }
 }

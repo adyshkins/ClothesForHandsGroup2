@@ -23,7 +23,7 @@ namespace ClothesForHandsGroup2
     /// </summary>
     public partial class ListMaterialWindow : Window
     {
-        private List<string> listSort = new List<string>() 
+        private List<string> listSort = new List<string>() // Формарование листа для сортировки
         {
             "Наименование (по возрастанию)",
             "Наименование (по убыванию)",
@@ -33,14 +33,18 @@ namespace ClothesForHandsGroup2
             "Стоимость (по убыванию)",
         };
 
-        List<TypeMaterial> typeMaterials = new List<TypeMaterial>();
+        List<TypeMaterial> typeMaterials = new List<TypeMaterial>(); // список типов материалов
 
-        List<Material> listMaterials = new List<Material>();
+        List<Material> listMaterials = new List<Material>(); // список для выгрузки на окно
 
 
-        private void Filter()
+        int numberPage = 0;
+        int countMaterial;
+
+        private void Filter() // Поиск, ФИЛЬТРАЦИЯ, сортировка
         {
-            listMaterials = Context.Material.ToList();
+            listMaterials = Context.Material.ToList(); // получиния всех материалов из БД
+            
             // Поиск
             listMaterials = listMaterials.
                 Where(i => i.Name.ToLower().Contains(txtSearch.Text.ToLower())).
@@ -50,11 +54,11 @@ namespace ClothesForHandsGroup2
             switch (cmbSort.SelectedIndex)
             {
                 case 0:
-                    listMaterials = listMaterials.OrderBy(i => i.Name).ToList();
+                    listMaterials = listMaterials.OrderBy(i => i.Name).ToList(); // сортировка по возрастанию
                     break;
 
                 case 1:
-                    listMaterials = listMaterials.OrderByDescending(i => i.Name).ToList();
+                    listMaterials = listMaterials.OrderByDescending(i => i.Name).ToList(); // сортировка по убыванию
                     break;
 
                 case 2:
@@ -73,7 +77,6 @@ namespace ClothesForHandsGroup2
                     listMaterials = listMaterials.OrderByDescending(i => i.Price).ToList();
                     break;
 
-
                 default:
                     listMaterials = listMaterials.OrderBy(i => i.Name).ToList();
                     break;
@@ -81,40 +84,50 @@ namespace ClothesForHandsGroup2
 
 
             // Фильтер
-            switch (cmbFilter.SelectedIndex)
+
+            if (cmbFilter.SelectedIndex != 0)
             {
-                case 0:
-                    listMaterials = listMaterials.ToList();
-                    break;
-                case 1:
-                    listMaterials = listMaterials.Where(i => i.TypeId == cmbFilter.SelectedIndex).ToList();
-                    break;
-                case 2:
-                    listMaterials = listMaterials.Where(i => i.TypeId == cmbFilter.SelectedIndex).ToList();
-                    break;
-                case 3:
-                    listMaterials = listMaterials.Where(i => i.TypeId == cmbFilter.SelectedIndex).ToList();
-                    break;
-                default:
-                    break;
+                listMaterials = listMaterials.Where(i => i.TypeId == cmbFilter.SelectedIndex).ToList();
             }
+
+            countMaterial = listMaterials.Count;
 
             // Постраничный вывод
 
-            //listMaterials = listMaterials.
-            //    OrderBy(i => i.ID).
-            //    Skip(0).
-            //    Take(15).
-            //    ToList();
+            listMaterials = listMaterials.
+                Skip(numberPage * 15).
+                Take(15).
+                ToList();
+
+            // издеваемся над кнопками
+
+            if (Convert.ToInt32(btn2.Content) > (((countMaterial / 15)) + 1))
+            {
+                btn2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btn2.Visibility = Visibility.Visible;
+            }
+
+            if (Convert.ToInt32(btn3.Content) > (((countMaterial / 15)) + 1))
+            {
+                btn3.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btn3.Visibility = Visibility.Visible;
+            }
 
             lvListMaterial.ItemsSource = listMaterials;
+            tbCountMaterial.Text = countMaterial.ToString();
         }
 
         public ListMaterialWindow()
         {
             InitializeComponent();
 
-            cmbSort.ItemsSource = listSort;
+            cmbSort.ItemsSource = listSort; // заполнеие ComboBox для сортировки
             cmbSort.SelectedIndex = 0;
 
             typeMaterials = Context.TypeMaterial.ToList();
@@ -122,11 +135,12 @@ namespace ClothesForHandsGroup2
             TypeMaterial newType = new TypeMaterial() {Name = "Все типы"};
 
             typeMaterials.Insert(0, newType);
-            cmbFilter.ItemsSource = typeMaterials;
+            cmbFilter.ItemsSource = typeMaterials; // заполнеие ComboBox для фильтрации
             cmbFilter.DisplayMemberPath = "Name";
             cmbFilter.SelectedIndex = 0;
 
-            Filter();     
+            Filter();
+            
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -142,6 +156,35 @@ namespace ClothesForHandsGroup2
         private void cmbFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Filter();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (numberPage > 0)
+            {
+                numberPage--;
+                btn1.Content = (numberPage + 1).ToString();
+                btn2.Content = (numberPage + 2).ToString();
+                btn3.Content = (numberPage + 3).ToString();
+                Filter();
+            }
+            
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (((countMaterial / 15)) > numberPage )
+            {
+                numberPage++;
+
+                btn1.Content = (numberPage + 1).ToString();
+                btn2.Content = (numberPage + 2).ToString();
+                btn3.Content = (numberPage + 3).ToString();
+             
+                Filter();
+            }
+           
         }
     }
 }

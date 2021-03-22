@@ -40,7 +40,7 @@
                        FontFamily="Candara"
                        Margin="10 0"/>
             
-            <TextBlock Text="14"
+            <TextBlock Text="15"
                        FontSize="25" 
                        FontFamily="Candara"
                        Margin="10 0"/>
@@ -50,7 +50,7 @@
                        FontFamily="Candara"
                        Margin="10 0"/>
             
-            <TextBlock Text="100"
+            <TextBlock x:Name="tbCountMaterial" Text="100"
                        FontSize="25" 
                        FontFamily="Candara"
                        Margin="10 0"/>
@@ -99,9 +99,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black"
-                BorderThickness="1"
-                Width="1000"
-                Height="100">
+                            BorderThickness="1"
+                            Width="1000"
+                            Height="100"
+                            Background="{Binding GetColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="150"/>
@@ -150,5 +151,53 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <!-- переход между страницами -->
+        <WrapPanel Grid.Row="5" 
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="30 0">
+            <Button x:Name="btnBack"
+                    Content="Назад"
+                    FontSize="18"
+                    FontFamily="Candara"
+                    Margin="5 0"
+                    Background="#FFF"
+                    BorderThickness="0"
+                    Click="btnBack_Click"/>
+            
+            <Button x:Name="btn1"
+                    Content="1"
+                    FontSize="18"
+                    FontFamily="Candara"
+                    Margin="5 0"
+                    Background="#A5E887"
+                    BorderThickness="0"/>
+
+            <Button x:Name="btn2"
+                    Content="2"
+                    FontSize="18"
+                    FontFamily="Candara"
+                    Margin="5 0"
+                    Background="#FFF"
+                    BorderThickness="0"/>
+
+            <Button x:Name="btn3"
+                    Content="3"
+                    FontSize="18"
+                    FontFamily="Candara"
+                    Margin="5 0"
+                    Background="#FFF"
+                    BorderThickness="0"/>
+
+            <Button x:Name="btnNext"
+                    Content="Вперед"
+                    FontSize="18"
+                    FontFamily="Candara"
+                    Margin="5 0"
+                    Background="#FFF"
+                    BorderThickness="0"
+                    Click="btnNext_Click"/>
+        </WrapPanel>
     </Grid>
 </Window>
