@@ -13,8 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ClothesForHandsGroup2.Windows;
+using ClothesForHandsGroup2.ClassHelper;
 using ClothesForHandsGroup2.EF; // Обращение к папке EF
 using static ClothesForHandsGroup2.EF.AppData; // вызов методов из класса AppData напрямую
+
 
 namespace ClothesForHandsGroup2
 {
@@ -30,12 +33,14 @@ namespace ClothesForHandsGroup2
             "Остаток на складе (по возрастанию)",
             "Остаток на складе (по убыванию)",
             "Стоимость (по возрастанию)",
-            "Стоимость (по убыванию)",
+            "Стоимость (по убыванию)"
         };
 
         List<TypeMaterial> typeMaterials = new List<TypeMaterial>(); // список типов материалов
 
         List<Material> listMaterials = new List<Material>(); // список для выгрузки на окно
+
+        List<Material> selectMaterial = new List<Material>(); // список для выбранных материалов
 
 
         int numberPage = 0;
@@ -103,7 +108,7 @@ namespace ClothesForHandsGroup2
 
             if (Convert.ToInt32(btn2.Content) > (((countMaterial / 15)) + 1))
             {
-                btn2.Visibility = Visibility.Hidden;
+                btn2.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -112,7 +117,7 @@ namespace ClothesForHandsGroup2
 
             if (Convert.ToInt32(btn3.Content) > (((countMaterial / 15)) + 1))
             {
-                btn3.Visibility = Visibility.Hidden;
+                btn3.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -121,20 +126,22 @@ namespace ClothesForHandsGroup2
 
             lvListMaterial.ItemsSource = listMaterials;
             tbCountMaterial.Text = countMaterial.ToString();
+            tbCountMaterialOnPage.Text = listMaterials.Count.ToString();
+            
         }
 
         public ListMaterialWindow()
         {
             InitializeComponent();
 
+            btnEditMinCount.Visibility = Visibility.Collapsed;
+
             cmbSort.ItemsSource = listSort; // заполнеие ComboBox для сортировки
             cmbSort.SelectedIndex = 0;
 
-            typeMaterials = Context.TypeMaterial.ToList();
+            typeMaterials = Context.TypeMaterial.ToList();            
 
-            TypeMaterial newType = new TypeMaterial() {Name = "Все типы"};
-
-            typeMaterials.Insert(0, newType);
+            typeMaterials.Insert(0, new TypeMaterial { Name = "Все типы" }); // добавление в список элемента "ВСЕ ТИПЫ"
             cmbFilter.ItemsSource = typeMaterials; // заполнеие ComboBox для фильтрации
             cmbFilter.DisplayMemberPath = "Name";
             cmbFilter.SelectedIndex = 0;
@@ -185,6 +192,40 @@ namespace ClothesForHandsGroup2
                 Filter();
             }
            
+        }
+
+        private void lvListMaterial_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lvListMaterial.SelectedIndex != -1) // если выбран элемент то показать кнопку
+            {
+                btnEditMinCount.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnEditMinCount.Visibility = Visibility.Collapsed; // если НЕ выбран элемент то спрятать кнопку
+            }
+            
+        }
+
+        private void btnEditMinCount_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var material in lvListMaterial.SelectedItems)
+            {
+                selectMaterial.Add(material as Material);
+            }
+
+            MinCountMaterial.EditMinCount = selectMaterial.Max(i => i.MinCount);
+
+            EditminCountWindow editminCountWindow = new EditminCountWindow();
+            editminCountWindow.ShowDialog();
+
+            foreach (var item in selectMaterial)
+            {
+                item.MinCount = MinCountMaterial.EditMinCount;
+            }
+            Context.SaveChanges();
+
+            Filter();
         }
     }
 }
